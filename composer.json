@@ -1,0 +1,23 @@
+{
+    "name": "robert-komasara/rest-client",
+    "description": "Sample http rest client written in php",
+    "type": "library",
+    "require": {
+        "php": "^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "RobertKomasara\\RestClient\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Robert Komasara",
+            "email": "robertkomasara@protonmail.com"
+        }
+    ]
+}

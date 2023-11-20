@@ -27,11 +27,11 @@ abstract class HttpRequestAbstract
         $this->curlOptions[$key] = $val;   
     }
 
-    public function sendRequest(string $url, array $data = []): mixed
+    public function sendRequest(string $url, array $data = [], string $method = 'GET'): array
     {
         $this->curlOptions[CURLOPT_URL] = $url;
 
-        if ( sizeof($data) ) {
+        if ( sizeof($data) && in_array($method,['PUT','POST']) ) {
             $this->curlOptions[CURLOPT_POST] = true;
             $this->curlOptions[CURLOPT_POSTFIELDS] = json_encode($data);
         }

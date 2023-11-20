@@ -12,34 +12,31 @@ class ApiEndpoint extends HttpEndpointAbstract implements HttpEndpointInterface
 {
     public function __construct(string $username,string $password)
     {
-        $this->apiClient = new ApiClient($username,$password); parent::__construct();
+        $this->apiClient = new ApiClient($username,$password); 
+        parent::__construct();
     }
 
-    public function setRequestUrl(): HttpEndpointInterface
+    public function getRequestUrl(): string
     {
-        $this->apiRequestUrl = 'http://rekrutacja.localhost:8091/shop_api/v1/producers';
-
-        return $this;
+        return 'http://rekrutacja.localhost:8091/shop_api/v1/producers';
     }
 
-    public function setRequestMethod(): HttpEndpointInterface
+    public function getRequestMethod(): string
     {
-        $this->apiRequestMethod = 'POST';
-
-        return $this;
+        return 'POST';
     }
 
-    public function setRequestModelObject(): HttpEndpointInterface
+    public function getRequestModelObject(): \stdClass
     {
-        $this->apiRequestModelObject = new \stdClass();   
-        $this->apiRequestModelObject->id = random_int(1111,9999);
-        $this->apiRequestModelObject->name = "EndpointModelSampleAdd";
-        $this->apiRequestModelObject->ordering = random_int(1111,9999);
-        $this->apiRequestModelObject->logo_filename = "cybersecurity.jpg";
-        $this->apiRequestModelObject->site_url = 'https://redops.pl';
-        $this->apiRequestModelObject->source_id = null;
+        $obj = new \stdClass();   
+        $obj->id = random_int(1111,9999);
+        $obj->name = "ApiEndpointSampleAdd";
+        $obj->ordering = random_int(1111,9999);
+        $obj->logo_filename = "cybersecurity.jpg";
+        $obj->site_url = 'https://redops.pl';
+        $obj->source_id = null;
 
-        return $this;
+        return $obj;
     }
 }
 

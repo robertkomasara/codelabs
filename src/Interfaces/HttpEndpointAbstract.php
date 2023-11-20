@@ -9,17 +9,9 @@ abstract class HttpEndpointAbstract
 {
     protected object $apiClient;
 
-    protected string $apiRequestUrl;
-
-    protected string $apiRequestMethod;
-    
-    protected object $apiRequestModelObject;
-
     public function __construct()
     {
-        if ( is_subclass_of(get_called_class(),HttpEndpointInterface::class) ){
-           $this->setRequestUrl(); $this->setRequestMethod(); $this->setRequestModelObject();
-        } else {
+        if ( ! is_subclass_of(get_called_class(),HttpEndpointInterface::class) ){
             throw new InterfaceException(get_called_class(),HttpEndpointInterface::class,500);
         }
     }
@@ -27,9 +19,10 @@ abstract class HttpEndpointAbstract
     public function sendRequest(): void
     {
         $response = $this->apiClient
-        ->setUrl($this->apiRequestUrl)
+        ->setUrl($this->getRequestUrl())
         ->setPostData([
-            'producer' => (array)$this->apiRequestModelObject])
-        ->execute(); var_dump($response);
+            'producer' => (array)$this->getRequestModelObject()
+        ])
+        ->execute($this->getRequestMethod()); var_dump($response);
     }
 }

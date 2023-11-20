@@ -4,9 +4,9 @@ namespace RobertKomasara\RestClient\Interfaces;
 
 interface HttpEndpointInterface
 {
-    public function setRequestUrl(): self;
+    public function getRequestUrl(): string;
 
-    public function setRequestMethod(): self;
+    public function getRequestMethod(): string;
 
-    public function setRequestModelObject(): self;
+    public function getRequestModelObject(): \stdClass;
 }

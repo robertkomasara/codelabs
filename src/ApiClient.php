@@ -40,10 +40,10 @@ class ApiClient extends HttpRequestAbstract implements HttpAuthInterface
 
         return $this;
     }
-
-    public function execute(): array
+    
+    public function execute(string $method): array
     {
-        list($response,$httpCode) = $this->setAuthMethod()->sendRequest($this->url,$this->postData);
+        list($response,$httpCode) = $this->setAuthMethod()->sendRequest($this->url,$this->postData,$method);
 
         return ['data' => $response,'code' => $httpCode];
     }

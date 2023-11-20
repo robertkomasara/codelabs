@@ -8,5 +8,21 @@ In Examples dir, You will find out few use cases, it should works with most of s
 Any modifications by You in my code are allowed outside this repository, You can always let me know if You added something interesting.
 Probably from time to time, I will update this library by another good to have features eg. another methods of authorization or file uploads.
 
-Happy hacking, cheers :)
+Usage : 
+
+┌─[robert@robert-G5-KD]─[~/projects/rest-client/src/Examples/Advanced/SampleAdd]
+└──╼ > php ./ApiEndpoint.php username password
+array(2) {
+  ["data"]=>
+  string(143) "{"id":4871,"name":"ApiEndpointSampleAdd","site_url":"https:\/\/redops.pl","logo_filename":"cybersecurity.jpg","ordering":1669,"source_id":null}"
+  ["code"]=>
+  int(201)
+}
+
+Important : 
+
+- In this example, You need to implement own simple class per api endpoint as I did in src/Examples/Advanced/SampleAdd/ApiEndpoint.php.
+- If You are looking for more generic & simple, but less flexible version check src/Examples/SampleAdd.php & src/Examples/SampleList.php.
+
+Whole of code is done by me and only me. Happy hacking, cheers :)
 

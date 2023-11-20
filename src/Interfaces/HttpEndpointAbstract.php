@@ -2,15 +2,34 @@
 
 namespace RobertKomasara\RestClient\Interfaces;
 
-use RobertKomasara\RestClient\Exception\HttpCurlException;
+use RobertKomasara\RestClient\Exception\InterfaceException;
+use RobertKomasara\RestClient\Interfaces\HttpEndpointInterface;
 
 abstract class HttpEndpointAbstract
 {
-    public object $apiClient;
+    protected object $apiClient;
 
-    public string $apiRequestUrl;
+    protected string $apiRequestUrl;
 
-    public string $apiRequestMethod;
+    protected string $apiRequestMethod;
     
-    public object $apiRequestModelObject;
+    protected object $apiRequestModelObject;
+
+    public function __construct()
+    {
+        if ( is_subclass_of(get_called_class(),HttpEndpointInterface::class) ){
+           $this->setRequestUrl(); $this->setRequestMethod(); $this->setRequestModelObject();
+        } else {
+            throw new InterfaceException(get_called_class(),HttpEndpointInterface::class,500);
+        }
+    }
+
+    public function sendRequest(): void
+    {
+        $response = $this->apiClient
+        ->setUrl($this->apiRequestUrl)
+        ->setPostData([
+            'producer' => (array)$this->apiRequestModelObject])
+        ->execute(); var_dump($response);
+    }
 }

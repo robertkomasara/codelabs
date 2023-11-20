@@ -12,20 +12,7 @@ class ApiEndpoint extends HttpEndpointAbstract implements HttpEndpointInterface
 {
     public function __construct(string $username,string $password)
     {
-        $this->setRequestUrl();
-        $this->setRequestMethod();
-        $this->setRequestModelObject();
-    
-        $this->apiClient = new ApiClient($username,$password);
-    }
-
-    public function sendRequest(): void
-    {
-        $response = $this->apiClient
-        ->setUrl($this->apiRequestUrl)
-        ->setPostData([
-            'producer' => (array)$this->apiRequestModelObject])
-        ->execute(); var_dump($response);
+        $this->apiClient = new ApiClient($username,$password); parent::__construct();
     }
 
     public function setRequestUrl(): HttpEndpointInterface
@@ -48,8 +35,8 @@ class ApiEndpoint extends HttpEndpointAbstract implements HttpEndpointInterface
         $this->apiRequestModelObject->id = random_int(1111,9999);
         $this->apiRequestModelObject->name = "EndpointModelSampleAdd";
         $this->apiRequestModelObject->ordering = random_int(1111,9999);
-        $this->apiRequestModelObject->logo_filename = "blackhatfolks.jpg";
-        $this->apiRequestModelObject->site_url = null;
+        $this->apiRequestModelObject->logo_filename = "cybersecurity.jpg";
+        $this->apiRequestModelObject->site_url = 'https://redops.pl';
         $this->apiRequestModelObject->source_id = null;
 
         return $this;

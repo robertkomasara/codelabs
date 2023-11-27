@@ -14,6 +14,11 @@
             "RobertKomasara\\RestClient\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "RobertKomasara\\RestClient\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Robert Komasara",

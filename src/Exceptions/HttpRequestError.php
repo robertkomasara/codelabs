@@ -1,6 +1,6 @@
 <?php
 
-namespace RobertKomasara\RestClient\Exception;
+namespace RobertKomasara\RestClient\Exceptions;
 
 class HttpRequestError extends \Exception
 {

@@ -2,16 +2,11 @@
 
 namespace RobertKomasara\RestClient\Interfaces;
 
-use RobertKomasara\RestClient\Exception\HttpRequestError;
+use RobertKomasara\RestClient\Exceptions\HttpRequestError;
 
 abstract class HttpRequestAbstract
 {
     protected \CurlHandle $curl;
-
-    public function __construct()
-    {
-        $this->curl = curl_init();
-    }
 
     protected array $curlOptions = [
         CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1, 
@@ -19,6 +14,11 @@ abstract class HttpRequestAbstract
         CURLOPT_FOLLOWLOCATION => 1, CURLOPT_MAXREDIRS => 1,
         CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0,
     ];
+
+    public function __construct()
+    {
+        $this->curl = curl_init();
+    }
 
     public function setMethod(string $method): void
     {

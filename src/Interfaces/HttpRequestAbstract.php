@@ -2,7 +2,7 @@
 
 namespace RobertKomasara\RestClient\Interfaces;
 
-use RobertKomasara\RestClient\Exception\HttpCurlException;
+use RobertKomasara\RestClient\Exception\HttpRequestError;
 
 abstract class HttpRequestAbstract
 {
@@ -20,30 +20,33 @@ abstract class HttpRequestAbstract
         CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0,
     ];
 
-    public abstract function setAuthMethod(): self;
-
-    public function setOptions(int $key, int $val): void
+    public function setMethod(string $method): void
     {
-        $this->curlOptions[$key] = $val;   
+        curl_setopt($this->curl, CURLOPT_CUSTOMREQUEST, $method);
     }
 
-    public function sendRequest(string $url, array $data = [], string $method = 'GET'): array
+    public function setHeaders(array $headers = []): void
+    {
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $headers);
+    }
+
+    public function sendRequest(string $url, string $data = ''): array
     {
         $this->curlOptions[CURLOPT_URL] = $url;
 
-        if ( sizeof($data) && in_array($method,['PUT','POST']) ) {
+        if( strlen($data) ){
             $this->curlOptions[CURLOPT_POST] = true;
-            $this->curlOptions[CURLOPT_POSTFIELDS] = json_encode($data);
+            $this->curlOptions[CURLOPT_POSTFIELDS] = $data;
         }
 
         curl_setopt_array($this->curl, $this->curlOptions);
         $response = curl_exec($this->curl);
         
         if( $errno = curl_errno($this->curl) ){
-            throw new HttpCurlException($errno,curl_strerror($errno));
+            throw new HttpRequestError($errno, curl_strerror($errno));
         }        
         
-        $httpCode = curl_getinfo($this->curl,CURLINFO_HTTP_CODE);
+        $httpCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         curl_close($this->curl);
     
         return [$response,$httpCode];
